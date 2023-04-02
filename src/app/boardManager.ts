@@ -23,26 +23,28 @@ export class BoardManager implements IBoardManager {
   }
 
   public placeShip(
-    ship: any,
+    ship: IShip,
     row: number,
     col: number,
     isHorizontal: boolean = true
   ) {
-    const { size } = ship;
+    const size = ship.getSize();
     const cells: TCell[] = [];
 
     for (let i = 0; i < size; i++) {
       const cellRow = isHorizontal ? row : row + i;
       const cellCol = isHorizontal ? col + i : col;
 
-      cells.push((this.board[cellRow][cellCol].ship = ship));
+      const result = { ...this.board[cellRow][cellCol], ship };
+
+      cells.push(result);
     }
 
     const isValid = cells.every((cell) => cell.ship === undefined);
 
-    if (!isValid) {
-      throw new Error("Invalid ship placement.");
-    }
+    // if (!isValid) {
+    //   throw new Error("Invalid ship placement.");
+    // }
 
     if (row > ROWS || row < 0 || col > COLS || col < 0) {
       throw new Error("Row and Col value must be from 0 to 9");
@@ -56,15 +58,21 @@ export class BoardManager implements IBoardManager {
 
   public placeAllShips(ships: IShip[]) {
     ships.forEach((ship) => {
-      let isValid = false;
+      let isValid = true;
 
-      while (!isValid) {
-        const row = getRandomInt(0, ROWS);
-        const col = getRandomInt(0, COLS);
+      while (isValid) {
+        const rowValue = getRandomInt(0, ROWS);
+        const colValue = getRandomInt(0, COLS);
+
+        const row = rowValue;
+        const col =
+          colValue + ship.getSize() > 10
+            ? colValue + ship.getSize() - colValue
+            : colValue;
 
         try {
-          this.placeShip(ship, row, col);
-          isValid = true;
+          this.placeShip(ship, rowValue, col);
+          isValid = false;
         } catch (e) {
           console.error(e);
         }

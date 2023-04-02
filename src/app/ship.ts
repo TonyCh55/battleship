@@ -1,16 +1,21 @@
 import { Service } from "typedi";
 
 import { ShipType } from "../constants";
-
-export interface IShip {
-  getIsSunk: () => boolean;
-}
+import { IShip } from "../types";
 
 class Ship implements IShip {
   protected type: ShipType;
   protected size = 0;
   protected hits = 0;
   protected isSunk = false;
+
+  public getType() {
+    return this.type;
+  }
+
+  public getSize() {
+    return this.size;
+  }
 
   public getIsSunk() {
     if (this.size === this.hits) {
@@ -22,20 +27,14 @@ class Ship implements IShip {
 }
 
 @Service()
-export class Carrier extends Ship {
-  protected type = ShipType.Carrier;
-  protected size = 5;
-}
-
-@Service()
 export class Battleship extends Ship {
   protected type = ShipType.Battleship;
   protected size = 4;
 }
 
 @Service()
-export class Submarine extends Ship {
-  protected type = ShipType.Submarine;
+export class Cruiser extends Ship {
+  protected type = ShipType.Сruiser;
   protected size = 3;
 }
 
@@ -46,19 +45,18 @@ export class Destroyer extends Ship {
 }
 
 @Service()
-export class Boat extends Ship {
-  protected type = ShipType.Boat;
+export class Submarine extends Ship {
+  protected type = ShipType.Submarine;
   protected size = 1;
 }
 
 @Service()
 export class ShipFactory {
   private config: Record<ShipType, Ship> = {
-    carrier: new Carrier(),
     battleship: new Battleship(),
-    submarine: new Submarine(),
+    cruiser: new Cruiser(),
     destroyer: new Destroyer(),
-    boat: new Boat(),
+    submarine: new Submarine(),
   };
 
   public createShip(type: ShipType) {

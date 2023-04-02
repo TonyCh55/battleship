@@ -1,22 +1,36 @@
 import { Service } from "typedi";
 
 import { ShipType } from "../constants/index";
-import { ShipFactory, IShip } from "./ship";
+import { ShipFactory } from "./ship";
+import { IShip } from "../types";
 
+interface IShipService {
+  getShips: () => IShip[];
+}
 @Service()
-export class ShipService {
+export class ShipService implements IShipService {
   private ships: IShip[];
 
   constructor(private shipFactory: ShipFactory) {}
 
   private generateShips() {
-    const carier = this.shipFactory.createShip(ShipType.Carrier);
     const battleship = this.shipFactory.createShip(ShipType.Battleship);
-    const submarine = this.shipFactory.createShip(ShipType.Submarine);
+    const cruiser = this.shipFactory.createShip(ShipType.Сruiser);
     const destroyer = this.shipFactory.createShip(ShipType.Destroyer);
-    const boat = this.shipFactory.createShip(ShipType.Boat);
+    const submarine = this.shipFactory.createShip(ShipType.Submarine);
 
-    this.ships = [carier, battleship, submarine, destroyer, boat];
+    this.ships = [
+      battleship,
+      cruiser,
+      cruiser,
+      // destroyer,
+      destroyer,
+      destroyer,
+      submarine,
+      submarine,
+      submarine,
+      submarine,
+    ];
   }
 
   public getShips() {

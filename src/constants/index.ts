@@ -8,9 +8,8 @@ export enum CellStatus {
 }
 
 export enum ShipType {
-  Carrier = "carrier",
   Battleship = "battleship",
-  Submarine = "submarine",
+  Сruiser = "cruiser",
   Destroyer = "destroyer",
-  Boat = "boat",
+  Submarine = "submarine",
 }

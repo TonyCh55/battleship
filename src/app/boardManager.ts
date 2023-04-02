@@ -66,9 +66,7 @@ export class BoardManager implements IBoardManager {
 
         const row = rowValue;
         const col =
-          colValue + ship.getSize() > 10
-            ? colValue + ship.getSize() - colValue
-            : colValue;
+          colValue + ship.getSize() > 10 ? getRandomInt(0, ROWS) : colValue;
 
         try {
           this.placeShip(ship, row, col);

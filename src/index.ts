@@ -12,7 +12,7 @@ a.execute();
 const board = new BoardService().createEmptyBoard();
 // console.log(board);
 
-const shipManager = new BoardManager(board);
+const boardManager = new BoardManager(board);
 // const battleship = new Battleship();
 // console.log(shipManager.placeShip(battleship, 1, 1));
 
@@ -21,4 +21,4 @@ const shipService = new ShipService(shipFactory);
 const ships = shipService.getShips();
 console.log("ships-config", ships);
 
-console.log(shipManager.placeAllShips(ships));
+console.log(boardManager.placeAllShips(ships));

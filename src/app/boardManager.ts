@@ -40,7 +40,7 @@ export class BoardManager implements IBoardManager {
       cells.push(result);
     }
 
-    const isValid = cells.every((cell) => cell.ship === undefined);
+    // const isValid = cells.every((cell) => cell.ship === undefined);
 
     // if (!isValid) {
     //   throw new Error("Invalid ship placement.");
@@ -71,7 +71,7 @@ export class BoardManager implements IBoardManager {
             : colValue;
 
         try {
-          this.placeShip(ship, rowValue, col);
+          this.placeShip(ship, row, col);
           isValid = false;
         } catch (e) {
           console.error(e);

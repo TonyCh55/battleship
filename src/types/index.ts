@@ -8,10 +8,10 @@ export type TCell = {
 export type TBoard = TCell[][];
 
 export interface IShip {
-  type: ShipType;
-  size: number;
-  hits: number;
-  isSunk: boolean;
+  // type: ShipType;
+  // size: number;
+  // hits: number;
+  // isSunk: boolean;
   getIsSunk: () => boolean;
 }
 

@@ -10,12 +10,15 @@ const a = new App();
 a.execute();
 
 const board = new BoardService().createEmptyBoard();
-console.log(board);
+// console.log(board);
 
 const shipManager = new BoardManager(board);
-const battleship = new Battleship();
-console.log(shipManager.placeShip(battleship, 1, 1, true));
+// const battleship = new Battleship();
+// console.log(shipManager.placeShip(battleship, 1, 1));
 
 const shipFactory = new ShipFactory();
 const shipService = new ShipService(shipFactory);
-console.log(shipService.getShips());
+const ships = shipService.getShips();
+console.log(ships);
+
+console.log(shipManager.placeAllShips(ships));

@@ -2,15 +2,16 @@ import { Service } from "typedi";
 
 import { ROWS, COLS } from "../constants";
 import { TBoard, IShip, TCell } from "../types";
+import { getRandomInt } from "../utils";
 
 interface IBoardManager {
   placeShip: (
     ship: IShip,
     row: number,
     col: number,
-    isHorizonatal: boolean,
-    xui: boolean
+    isHorizonatal?: boolean
   ) => void;
+  placeAllShips: (ships: IShip[]) => TBoard;
 }
 
 @Service()
@@ -21,7 +22,12 @@ export class BoardManager implements IBoardManager {
     this.board = board;
   }
 
-  public placeShip(ship: any, row: number, col: number, isHorizontal: boolean) {
+  public placeShip(
+    ship: any,
+    row: number,
+    col: number,
+    isHorizontal: boolean = true
+  ) {
     const { size } = ship;
     const cells: TCell[] = [];
 
@@ -44,6 +50,26 @@ export class BoardManager implements IBoardManager {
 
     this.board[row].splice(col, 0, ...cells);
     this.board[row].splice(10);
+
+    return;
+  }
+
+  public placeAllShips(ships: IShip[]) {
+    ships.forEach((ship) => {
+      let isValid = false;
+
+      while (!isValid) {
+        const row = getRandomInt(0, ROWS);
+        const col = getRandomInt(0, COLS);
+
+        try {
+          this.placeShip(ship, row, col);
+          isValid = true;
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    });
 
     return this.board;
   }

@@ -19,6 +19,6 @@ const shipManager = new BoardManager(board);
 const shipFactory = new ShipFactory();
 const shipService = new ShipService(shipFactory);
 const ships = shipService.getShips();
-console.log(ships);
+console.log("ships-config", ships);
 
 console.log(shipManager.placeAllShips(ships));
